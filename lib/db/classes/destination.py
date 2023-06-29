@@ -1,7 +1,7 @@
 from ipdb import set_trace
 import sqlite3
 
-CONN = sqlite3.connect('lib/resources.db')
+CONN = sqlite3.connect('lib/db/travel_log.db')
 CURSOR = CONN.cursor()
 
 class Destination:
