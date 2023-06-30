@@ -14,11 +14,11 @@ class Destination:
 
     @property 
     def destination(self):
-        return self._location
+        return self._destination
 
     @destination.setter
     def destination(self, destination):
         if isinstance(destination, str) and len(destination) in range(1, 21):
-            self._location = destination
+            self._destination = destination
         else:
             raise Exception("Location must be a string between 1 and 20 characters.")
