@@ -69,7 +69,7 @@ class Adventure:
             INSERT INTO adventures (traveler, location, transportation, cost, traveller_id)
             VALUES(?, ?, ?, ?, ?)
         """
-        params = (self.traveler, self.location, self.transportation, self.cost)
+        params = (self.transportation, self.cost, self.traveler_id, self.destination_id)
         CURSOR.execute(sql, params)
         CONN.commit()
         print(self)

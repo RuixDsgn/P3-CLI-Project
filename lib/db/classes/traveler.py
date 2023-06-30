@@ -26,4 +26,77 @@ class Traveler:
         else:
             raise Exception("Traveler must be a string between 1 and 20 characters.")
         
+    @classmethod
+    def create_table(cls):
+        create_table_sql = """
+            CREATE TABLE IF NOT EXIST adventures (
+                id INTEGER PRIMARY KEY,
+                traveler TEXT,
+                location TEXT,
+                transportation TEXT,
+                cost INt,
+                traveller_id INT
+            )
+            """
+        CURSOR.execute(create_table_sql)
+        print("creating adventure table...")
+
+    @classmethod
+    def drop_table(cls):
+        sql = "DROP TABLE IF EXISTS adventures"
+        CURSOR.execute(sql)
+        print("dropping table...")
+
+    def save(self):
+        sql = """
+            INSERT INTO adventures (traveler, location, transportation, cost, traveller_id)
+            VALUES(?, ?, ?, ?, ?)
+        """
+        params = (self.traveler, self.location, self.transportation, self.cost)
+        CURSOR.execute(sql, params)
+        CONN.commit()
+        print(self)
+
+        self.id = CURSOR.lastrowid
+
+    @classmethod
+    def create(cls, destination, transportation, cost, id=None):
+        new_adventure = Adventure(destination, transportation, cost)
+        new_adventure.save()
+
+     @classmethod
+    def new_instance_from_db(cls, row):
+        return cls(
+            id=row[0],
+            traveler=row[1],
+            destination=row[2],
+            transportation=row[3],
+            cost=row[4],
+        )
+
+    @classmethod
+    def get_all(cls):
+        sql = "SELECT * FROM adventures"
+        response = CURSOR.execute(sql)
+        all_adventures_list = response.fetchall()
+        return [Adventure.new_instance_from_db(row) for row in all_adventures_list]
+    
+    @classmethod
+    def find_by_traveler(cls, search):
+        sql = """
+            SELECT * FROM adventures WHERE traveller = ?
+        """
+        response = CURSOR.execute(sql, (search, ))
+        row = response.fetchone()
+        return Adventure.new_instance_from_db(row)
+    
+    @classmethod
+    def find_by_id(cls, search_id):
+        sql = """
+            SELECT * FROM adventures WHERE id = ?
+        """
+        row = CURSOR.execute(sql, (search_id, )).fetchone()
+        return Adventure.new_instance_from_db(row)if row else None
+    
+        
         
