@@ -76,7 +76,7 @@ class Adventure:
                 traveler TEXT,
                 destination TEXT,
                 transportation TEXT,
-                cost INt,
+                cost INT,
                 traveller_id INT
             )
             """

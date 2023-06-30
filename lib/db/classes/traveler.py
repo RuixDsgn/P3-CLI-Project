@@ -1,4 +1,4 @@
-from ipdb import set_trace
+# from ipdb import set_trace
 import sqlite3
 
 CONN = sqlite3.connect('lib/db/travel_log.db')
@@ -32,14 +32,10 @@ class Traveler:
             CREATE TABLE IF NOT EXIST adventures (
                 id INTEGER PRIMARY KEY,
                 traveler TEXT,
-                location TEXT,
-                transportation TEXT,
-                cost INt,
-                traveller_id INT
-            )
+                )
             """
         CURSOR.execute(create_table_sql)
-        print("creating adventure table...")
+        print("creating traveler table...")
 
     @classmethod
     def drop_table(cls):
@@ -49,46 +45,42 @@ class Traveler:
 
     def save(self):
         sql = """
-            INSERT INTO adventures (traveler, location, transportation, cost, traveller_id)
-            VALUES(?, ?, ?, ?, ?)
+            INSERT INTO adventures (traveler)
+            VALUES(?)
         """
-        params = (self.traveler, self.location, self.transportation, self.cost)
-        CURSOR.execute(sql, params)
+        params = (self.traveler)
         CONN.commit()
         print(self)
 
         self.id = CURSOR.lastrowid
 
     @classmethod
-    def create(cls, destination, transportation, cost, id=None):
-        new_adventure = Adventure(destination, transportation, cost)
+    def create(traveler, id=None):
+        new_adventure = Traveler(traveler)
         new_adventure.save()
 
-     @classmethod
+    @classmethod
     def new_instance_from_db(cls, row):
         return cls(
             id=row[0],
-            traveler=row[1],
-            destination=row[2],
-            transportation=row[3],
-            cost=row[4],
+            traveler=row[1]
         )
 
     @classmethod
     def get_all(cls):
-        sql = "SELECT * FROM adventures"
+        sql = "SELECT * FROM travelers"
         response = CURSOR.execute(sql)
-        all_adventures_list = response.fetchall()
-        return [Adventure.new_instance_from_db(row) for row in all_adventures_list]
+        all_travelers_list = response.fetchall()
+        return [Traveler.new_instance_from_db(row) for row in all_travelers_list]
     
     @classmethod
     def find_by_traveler(cls, search):
         sql = """
-            SELECT * FROM adventures WHERE traveller = ?
+            SELECT * FROM adventures WHERE traveler = ?
         """
         response = CURSOR.execute(sql, (search, ))
         row = response.fetchone()
-        return Adventure.new_instance_from_db(row)
+        return Traveler.new_instance_from_db(row)
     
     @classmethod
     def find_by_id(cls, search_id):
@@ -96,7 +88,7 @@ class Traveler:
             SELECT * FROM adventures WHERE id = ?
         """
         row = CURSOR.execute(sql, (search_id, )).fetchone()
-        return Adventure.new_instance_from_db(row)if row else None
+        return Traveler.new_instance_from_db(row)if row else None
     
         
         
