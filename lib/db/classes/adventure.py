@@ -8,9 +8,9 @@ class Adventure:
 
     all_adventures = []
 
-    def __init__(self, traveler, location, transportation, cost, traveller_id, id =None): #set validation for transportation to include driving, walking, boat, plane, time machine
+    def __init__(self, traveler, destination, transportation, cost, traveller_id, id=None): #set validation for transportation to include driving, walking, boat, plane, time machine
         self.traveler = traveler
-        self.location = location
+        self.location = destination
         self.transportation = transportation
         self.cost = cost
         self.traveller_id = traveller_id
@@ -93,4 +93,4 @@ class Adventure:
         row = CURSOR.execute(sql, (search_id, )).fetchone()
         return Adventure.new_instance_from_db(row)if row else None
     
-
+    
