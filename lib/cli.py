@@ -1,8 +1,8 @@
 from ipdb import set_trace
 from os import system
-from traveler import Traveler
-from destination import Destination
-from adventure import Adventure
+from db.classes.traveler import Traveler
+from db.classes.destination import Destination
+from db.classes.adventure import Adventure
 from helpers import *
 
 if __name__ == "__main__":
@@ -27,3 +27,6 @@ jgs   `~~~~~/ /~~`
           '-'
       
     ''')
+    print("Welcome to PyTrip!")
+
+main_menu()

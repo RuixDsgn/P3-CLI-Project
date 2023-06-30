@@ -1,7 +1,7 @@
 from ipdb import set_trace
-from traveler import Traveler
-from destination import Destination
-from adventure import Adventure
+from db.classes.traveler import Traveler
+from db.classes.destination import Destination
+from db.classes.adventure import Adventure
 
 # The helper file is where we will define all of our functions
 def main_menu():
