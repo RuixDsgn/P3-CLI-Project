@@ -14,6 +14,31 @@ class Adventure:
         self.traveler = traveler_id
         self.location = destination_id
         Adventure.all_adventures.append(self)
+    
+    @property
+    def traveler(self):
+        return self._traveler
+
+    @traveler.setter
+    def traveler(self, traveler):
+        from classes.traveler import Traveler
+        if isinstance(traveler, Traveler):
+            self._traveler = traveler
+        else:
+            raise Exception()
+        
+    
+    @property
+    def destination(self):
+        return self._destination
+    
+    @destination.setter
+    def destination(self, destination):
+        from classes.destination import Destination
+        if isinstance(destination, Destination):
+            self._destination = destination
+        else:
+            raise Exception()
 
     @property
     def traveler(self):
@@ -49,7 +74,7 @@ class Adventure:
             CREATE TABLE IF NOT EXIST adventures (
                 id INTEGER PRIMARY KEY,
                 traveler TEXT,
-                location TEXT,
+                destination TEXT,
                 transportation TEXT,
                 cost INt,
                 traveller_id INT
@@ -66,7 +91,7 @@ class Adventure:
 
     def save(self):
         sql = """
-            INSERT INTO adventures (traveler, location, transportation, cost, traveller_id)
+            INSERT INTO adventures (traveler, destination, transportation, cost, traveller_id)
             VALUES(?, ?, ?, ?, ?)
         """
         params = (self.transportation, self.cost, self.traveler_id, self.destination_id)
