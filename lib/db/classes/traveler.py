@@ -12,6 +12,9 @@ class Traveler:
         self.traveler = traveler
         Traveler.all_travelers.append(self)
 
+    def __repr__(self):
+        return self.__dict__
+
     @property 
     def traveler(self):
         return self._traveler
