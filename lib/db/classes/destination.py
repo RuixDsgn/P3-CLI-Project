@@ -76,11 +76,11 @@ class Destination:
     @classmethod
     def find_by_traveler(cls, search):
         sql = """
-            SELECT * FROM adventures WHERE traveller = ?
+            SELECT * FROM adventures WHERE destination = ?
         """
         response = CURSOR.execute(sql, (search, ))
         row = response.fetchone()
-        return Adventure.new_instance_from_db(row)
+        return Destination.new_instance_from_db(row)
     
     @classmethod
     def find_by_id(cls, search_id):
@@ -88,4 +88,4 @@ class Destination:
             SELECT * FROM adventures WHERE id = ?
         """
         row = CURSOR.execute(sql, (search_id, )).fetchone()
-        return Adventure.new_instance_from_db(row)if row else None
+        return Destination.new_instance_from_db(row)if row else None
