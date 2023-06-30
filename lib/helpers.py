@@ -17,11 +17,27 @@ def main_menu():
     
     first_input = input("Select an Option by typing in a number: ")
     if first_input in menu_options:
-        print(f'You ve selected {first_input}')
-
-        if first_input == "2":
+        print(f'You have selected {first_input}')
+        if first_input == "1":
+            print("yo, how's it going?")
+        
+        elif first_input == "2":
             print_adventure_list(Adventure.get_all())
             main_menu()
+
+        elif first_input == "3":
+            pass
+        
+        elif first_input == "4":
+            pass
+        
+        elif first_input == "X":
+            print("Goodbye...")
+
+    else:
+        print("BAD OPTION")
+        main_menu()
+
 
     def print_adventure_list(adventure_list):
         for adventure in adventure_list:

@@ -1,4 +1,4 @@
-from ipdb import set_trace
+# from ipdb import set_trace
 from os import system
 from db.classes.traveler import Traveler
 from db.classes.destination import Destination

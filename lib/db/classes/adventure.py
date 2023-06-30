@@ -8,12 +8,11 @@ class Adventure:
 
     all_adventures = []
 
-    def __init__(self, traveler, destination, transportation, cost, traveller_id, id=None): #set validation for transportation to include driving, walking, boat, plane, time machine
+    def __init__(self, traveler, destination, transportation, cost, id=None): #set validation for transportation to include driving, walking, boat, plane, time machine
         self.traveler = traveler
         self.location = destination
         self.transportation = transportation
         self.cost = cost
-        self.traveller_id = traveller_id
         Adventure.all_adventures.append(self)
 
     @property
@@ -70,7 +69,7 @@ class Adventure:
             INSERT INTO adventures (traveler, location, transportation, cost, traveller_id)
             VALUES(?, ?, ?, ?, ?)
         """
-        params = (self.traveler, self.location, self.transportation, self.cost, self.traveller_id)
+        params = (self.traveler, self.location, self.transportation, self.cost)
         CURSOR.execute(sql, params)
         CONN.commit()
         print(self)
@@ -78,8 +77,8 @@ class Adventure:
         self.id = CURSOR.lastrowid
 
     @classmethod
-    def create(cls, destination, transportation, cost, traveller_id, id =None):
-        new_adventure = Adventure(destination, transportation, cost, traveller_id)
+    def create(cls, destination, transportation, cost, id=None):
+        new_adventure = Adventure(destination, transportation, cost)
         new_adventure.save()
 
     @classmethod
@@ -90,7 +89,7 @@ class Adventure:
             destination=row[2],
             transportation=row[3],
             cost=row[4],
-            traveller_id=row[5]
+            
         )
 
 
