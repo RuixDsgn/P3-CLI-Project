@@ -71,13 +71,12 @@ class Adventure:
     @classmethod
     def create_table(cls):
         create_table_sql = """
-            CREATE TABLE IF NOT EXIST adventures (
+            CREATE TABLE IF NOT EXISTS adventures (
                 id INTEGER PRIMARY KEY,
-                traveler TEXT,
-                destination TEXT,
                 transportation TEXT,
                 cost INT,
-                traveller_id INT
+                traveler_id INT,
+                destination_id INT
             )
             """
         CURSOR.execute(create_table_sql)
@@ -91,8 +90,8 @@ class Adventure:
 
     def save(self):
         sql = """
-            INSERT INTO adventures (traveler, destination, transportation, cost, traveller_id)
-            VALUES(?, ?, ?, ?, ?)
+            INSERT INTO adventures (transportation, cost, traveller_id, destination_id)
+            VALUES(?, ?, ?, ?)
         """
         params = (self.transportation, self.cost, self.traveler_id, self.destination_id)
         CURSOR.execute(sql, params)

@@ -26,7 +26,7 @@ class Destination:
     @classmethod
     def create_table(cls):
         create_table_sql = """
-            CREATE TABLE IF NOT EXIST destination (
+            CREATE TABLE IF NOT EXISTS destination (
                 id INTEGER PRIMARY KEY,
                 destination TEXT,
             )
@@ -45,7 +45,7 @@ class Destination:
             INSERT INTO adventures (destination, )
             VALUES(?, )
         """
-        params = (self.destination_id, )
+        params = (self.destination, )
         CURSOR.execute(sql, params)
         CONN.commit()
         print(self)

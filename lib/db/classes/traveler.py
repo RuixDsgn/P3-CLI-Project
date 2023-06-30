@@ -29,7 +29,7 @@ class Traveler:
     @classmethod
     def create_table(cls):
         create_table_sql = """
-            CREATE TABLE IF NOT EXIST adventures (
+            CREATE TABLE IF NOT EXISTS traveler (
                 id INTEGER PRIMARY KEY,
                 traveler TEXT,
                 )
@@ -45,10 +45,10 @@ class Traveler:
 
     def save(self):
         sql = """
-            INSERT INTO adventures (traveler)
-            VALUES(?)
+            INSERT INTO adventures (traveler, )
+            VALUES(?, )
         """
-        params = (self.traveler)
+        params = (self.traveler, )
         CONN.commit()
         print(self)
 
