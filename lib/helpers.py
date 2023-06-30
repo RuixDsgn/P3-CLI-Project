@@ -14,3 +14,22 @@ def main_menu():
           4. View all Destinations
           X. Exit PyTrip
           ''')
+    
+    first_input = input("Select an Option by typing in a number: ")
+    if first_input in menu_options:
+        print(f'You ve selected {first_input}')
+
+        if first_input == "2":
+            print_adventure_list(Adventure.get_all())
+            main_menu()
+
+    def print_adventure_list(adventure_list):
+        for adventure in adventure_list:
+      #  display one adventure
+            print(f'''
+                traveler => {adventure.traveler}
+                location => {adventure.destination}
+                transportation => {adventure.transportation}
+                cost => {adventure.cost}
+                
+            ''')
