@@ -1,4 +1,5 @@
 from ipdb import set_trace
+
 import sqlite3
 
 CONN = sqlite3.connect('lib/db/travel_log.db')
@@ -11,11 +12,35 @@ class Adventure:
     def __init__(self, transportation, cost, traveler_id, destination_id, id=None): #set validation for transportation to include driving, walking, boat, plane, time machine
         self.transportation = transportation
         self.cost = cost
-        self.traveler = traveler_id
-        self.location = destination_id
+        self.traveler_id = traveler_id
+        self.destination_id = destination_id
         Adventure.all_adventures.append(self)
     
     @property
+    def traveler_id(self):
+        return self._traveler_id
+
+    @traveler_id.setter
+    def traveler_id(self, traveler_id):
+        from classes.traveler import Traveler
+        if isinstance(traveler_id, int):
+            self._traveler_id = traveler_id
+        else:
+            raise Exception("not good")
+        
+    
+    @property
+    def destination_id(self):
+        return self._destination_id
+    
+    @destination_id.setter
+    def destination_id(self, destination_id):
+        if isinstance(destination_id, int):
+            self._destination_id = destination_id
+        else:
+            raise Exception()
+
+    @property
     def traveler(self):
         return self._traveler
 
@@ -30,32 +55,9 @@ class Adventure:
     
     @property
     def destination(self):
-        return self._destination
-    
-    @destination.setter
-    def destination(self, destination):
         from classes.destination import Destination
-        if isinstance(destination, Destination):
-            self._destination = destination
-        else:
-            raise Exception()
-
-    @property
-    def traveler(self):
-        return self._traveler
-
-    @traveler.setter
-    def traveler(self, traveler):
-        from classes.traveler import Traveler
-        if isinstance(traveler, Traveler):
-            self._traveler = traveler
-        else:
-            raise Exception()
+        return Destination.find_by_id(self.destination_id)
         
-    
-    @property
-    def destination(self):
-        return self._destination
     
     @destination.setter
     def destination(self, destination):
@@ -66,8 +68,8 @@ class Adventure:
             raise Exception()
 
     def __repr__(self):
-        return self.__dict__
-
+        return str(self.__dict__)
+    
     @classmethod
     def create_table(cls):
         create_table_sql = """
@@ -90,7 +92,7 @@ class Adventure:
 
     def save(self):
         sql = """
-            INSERT INTO adventures (transportation, cost, traveller_id, destination_id)
+            INSERT INTO adventures (transportation, cost, traveler_id, destination_id)
             VALUES(?, ?, ?, ?)
         """
         params = (self.transportation, self.cost, self.traveler_id, self.destination_id)

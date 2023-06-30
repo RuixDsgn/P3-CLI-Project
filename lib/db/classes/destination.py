@@ -12,6 +12,9 @@ class Destination:
         self.destination = destination
         Destination.all_destinations.append(self)
 
+    def __repr__(self):
+        return str(self.__dict__)
+
     @property 
     def destination(self):
         return self._destination
@@ -28,7 +31,7 @@ class Destination:
         create_table_sql = """
             CREATE TABLE IF NOT EXISTS destination (
                 id INTEGER PRIMARY KEY,
-                destination TEXT,
+                destination TEXT
             )
             """
         CURSOR.execute(create_table_sql)
@@ -42,10 +45,10 @@ class Destination:
 
     def save(self):
         sql = """
-            INSERT INTO adventures (destination, )
-            VALUES(?, )
+            INSERT INTO destination (destination)
+            VALUES(?)
         """
-        params = (self.destination, )
+        params = (self.destination,)
         CURSOR.execute(sql, params)
         CONN.commit()
         print(self)
@@ -74,7 +77,7 @@ class Destination:
         return [Destination.new_instance_from_db(row) for row in all_destination_list]
     
     @classmethod
-    def find_by_traveler(cls, search):
+    def find_by_destination(cls, search):
         sql = """
             SELECT * FROM adventures WHERE destination = ?
         """
@@ -85,7 +88,7 @@ class Destination:
     @classmethod
     def find_by_id(cls, search_id):
         sql = """
-            SELECT * FROM adventures WHERE id = ?
+            SELECT * FROM destinations WHERE id = ?
         """
         row = CURSOR.execute(sql, (search_id, )).fetchone()
         return Destination.new_instance_from_db(row)if row else None

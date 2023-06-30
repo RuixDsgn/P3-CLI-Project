@@ -1,4 +1,4 @@
-# from ipdb import set_trace
+from ipdb import set_trace
 from classes.traveler import Traveler
 from classes.destination import Destination
 from classes.adventure import Adventure
@@ -29,11 +29,11 @@ if __name__ == "__main__":
     d2.save()
     d3.save()
 
-
-
     a1 = Adventure("Plane", 500, t1.id, d1.id)
     a2 = Adventure("Car", 800, t2.id, d2.id)
     a3 = Adventure("Boat", 1500, t3.id, d3.id)
+
+    # set_trace()
 
     a1.save()
     a2.save()

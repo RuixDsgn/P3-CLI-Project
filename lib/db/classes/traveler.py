@@ -13,8 +13,8 @@ class Traveler:
         Traveler.all_travelers.append(self)
 
     def __repr__(self):
-        return self.__dict__
-
+        return str(self.__dict__)
+        
     @property 
     def traveler(self):
         return self._traveler
@@ -31,7 +31,7 @@ class Traveler:
         create_table_sql = """
             CREATE TABLE IF NOT EXISTS traveler (
                 id INTEGER PRIMARY KEY,
-                traveler TEXT,
+                traveler TEXT
                 )
             """
         CURSOR.execute(create_table_sql)
@@ -39,16 +39,17 @@ class Traveler:
 
     @classmethod
     def drop_table(cls):
-        sql = "DROP TABLE IF EXISTS adventures"
+        sql = "DROP TABLE IF EXISTS travelers"
         CURSOR.execute(sql)
         print("dropping table...")
 
     def save(self):
         sql = """
-            INSERT INTO adventures (traveler, )
-            VALUES(?, )
+            INSERT INTO traveler (traveler)
+            VALUES(?)
         """
-        params = (self.traveler, )
+        params = (self.traveler,)
+        CURSOR.execute(sql, params)
         CONN.commit()
         print(self)
 
