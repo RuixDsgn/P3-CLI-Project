@@ -16,6 +16,31 @@ class Adventure:
         self.traveller_id = traveller_id
         Adventure.all_adventures.append(self)
 
+    @property
+    def traveler(self):
+        return self._traveler
+
+    @traveler.setter
+    def traveler(self, traveler):
+        from classes.traveler import Traveler
+        if isinstance(traveler, Traveler):
+            self._traveler = traveler
+        else:
+            raise Exception()
+        
+    
+    @property
+    def destination(self):
+        return self._destination
+    
+    @destination.setter
+    def destination(self, destination):
+        from classes.destination import Destination
+        if isinstance(destination, Destination):
+            self._destination = destination
+        else:
+            raise Exception()
+
     def __repr__(self):
         return self.__dict__
 
@@ -53,8 +78,8 @@ class Adventure:
         self.id = CURSOR.lastrowid
 
     @classmethod
-    def create(cls, location, transportation, cost, traveller_id, id =None):
-        new_adventure = Adventure(location, transportation, cost, traveller_id)
+    def create(cls, destination, transportation, cost, traveller_id, id =None):
+        new_adventure = Adventure(destination, transportation, cost, traveller_id)
         new_adventure.save()
 
     @classmethod
@@ -62,7 +87,7 @@ class Adventure:
         return cls(
             id=row[0],
             traveler=row[1],
-            location=row[2],
+            destination=row[2],
             transportation=row[3],
             cost=row[4],
             traveller_id=row[5]
