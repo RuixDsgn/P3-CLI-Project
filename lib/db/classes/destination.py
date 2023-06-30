@@ -8,17 +8,17 @@ class Destination:
 
     all_destinations = []
     
-    def __init__(self, location):
-        self.location = location
+    def __init__(self, destination):
+        self.destination = destination
         Destination.all_destinations.append(self)
 
     @property 
-    def location(self):
-        return self._location
+    def destination(self):
+        return self._destination
 
-    @location.setter
-    def location(self, location):
-        if isinstance(location, str) and len(location) in range(1, 21):
-            self._location = location
+    @destination.setter
+    def destination(self, destination):
+        if isinstance(destination, str) and len(destination) in range(1, 21):
+            self._destination = destination
         else:
             raise Exception("Location must be a string between 1 and 20 characters.")

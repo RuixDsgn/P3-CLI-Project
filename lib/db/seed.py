@@ -13,9 +13,17 @@ if __name__ == "__main__":
     Traveler.create_table()
     Destination.create_table()
 
-    a1 = Adventure("Layne", "Japan", "Plane", 500)
-    a2 = Adventure("Carla", "Brazil", "Car", 800)
-    a3 = Adventure("Louis", "Germany", "Boat", 1500)
+    t1 = Traveler("Layne")
+    t2 = Traveler("Carla")
+    t3 = Traveler("Louis")
+
+    d1 = Destination("Japan")
+    d2 = Destination("Brazil")
+    d3 = Destination("Germany")
+
+    a1 = Adventure("Plane", 500, t1.id, d1.id)
+    a2 = Adventure("Car", 800, t2.id, d2.id)
+    a3 = Adventure("Boat", 1500, t3.id, d3.id)
 
     a1.save()
     a2.save()

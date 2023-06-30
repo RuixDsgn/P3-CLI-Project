@@ -8,11 +8,11 @@ class Adventure:
 
     all_adventures = []
 
-    def __init__(self, traveler, destination, transportation, cost, id=None): #set validation for transportation to include driving, walking, boat, plane, time machine
-        self.traveler = traveler
-        self.location = destination
+    def __init__(self, transportation, cost, traveler_id, destination_id, id=None): #set validation for transportation to include driving, walking, boat, plane, time machine
         self.transportation = transportation
         self.cost = cost
+        self.traveler = traveler_id
+        self.location = destination_id
         Adventure.all_adventures.append(self)
 
     @property

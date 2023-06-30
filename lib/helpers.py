@@ -39,13 +39,12 @@ def main_menu():
         main_menu()
 
 
-    def print_adventure_list(adventure_list):
-        for adventure in adventure_list:
+def print_adventure_list(adventure_list):
+    for adventure in adventure_list:
       #  display one adventure
-            print(f'''
-                traveler => {adventure.traveler}
-                location => {adventure.destination}
-                transportation => {adventure.transportation}
-                cost => {adventure.cost}
-                
-            ''')
+        print(f'''
+            traveler => {adventure.traveler}
+            location => {adventure.destination}
+            transportation => {adventure.transportation}
+            cost => {adventure.cost}
+                ''')
